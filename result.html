@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#0c0c0e">
+<title>Live Result – হকাই-এর ধন</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0c0c0e;--surf:#151518;--surf2:#1e1e23;--line:rgba(255,255,255,.09);--tx:#f4f1ea;--mut:#8f8d96;--gold:#d8b46a;--gold2:#f0d79a;--ok:#6fcf97}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+input{-webkit-user-select:text;user-select:text}
+html,body{margin:0;min-height:100%;overscroll-behavior:none;touch-action:manipulation;-webkit-text-size-adjust:100%}
+body{font-family:"Hind Siliguri",system-ui,sans-serif;color:var(--tx);-webkit-font-smoothing:antialiased;background:radial-gradient(120% 55% at 50% -8%,rgba(216,180,106,.11),transparent 60%),var(--bg);background-attachment:fixed;padding:calc(env(safe-area-inset-top,0px) + 34px) 20px calc(env(safe-area-inset-bottom,0px) + 36px)}
+.wrap{max-width:440px;margin:0 auto}
+.hero{text-align:center;margin-bottom:30px}
+.ic{display:block;font-size:1.9rem;margin-bottom:14px;opacity:.9}
+h1{font-size:1.6rem;line-height:1.35;margin:0 0 8px;font-weight:600;letter-spacing:-.01em;color:var(--tx);background:none;-webkit-text-fill-color:currentColor}
+.sub{color:var(--mut);margin:0;font-size:.95rem;line-height:1.5}
+.step{color:var(--mut);font-size:.88rem;font-weight:500;letter-spacing:.04em;margin:0 0 14px}
+.names{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.nm{padding:17px 8px;font:inherit;font-size:1.05rem;font-weight:500;color:var(--tx);background:var(--surf);border:1px solid var(--line);border-radius:14px;transition:transform .2s ease,border-color .25s ease,background .25s ease;animation:up .5s cubic-bezier(.2,.8,.2,1) both}
+.nm:active{transform:scale(.96);border-color:var(--gold);background:var(--surf2)}
+.opt{display:flex;align-items:center;gap:14px;width:100%;text-align:left;font:inherit;color:var(--tx);padding:16px;margin-bottom:10px;background:var(--surf);border:1px solid var(--line);border-radius:16px;transition:transform .2s ease,border-color .25s ease,background .25s ease;animation:up .5s cubic-bezier(.2,.8,.2,1) both}
+.opt:active{transform:scale(.985)}
+.av{flex:none;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font-weight:600;font-size:1rem;color:var(--gold);background:var(--surf2);border:1px solid var(--line)}
+.tx{flex:1;font-size:1.02rem;font-weight:500;line-height:1.45}
+.ck{flex:none;width:22px;height:22px;border-radius:50%;border:1.5px solid rgba(255,255,255,.22);transition:.25s ease}
+.opt.sel{border-color:var(--gold);background:var(--surf2)}
+.opt.sel .ck{background:var(--gold);border-color:var(--gold);box-shadow:inset 0 0 0 5px var(--surf2)}
+.opt.cbi{border-style:dashed}.opt.cbi .av{border-color:rgba(216,180,106,.4)}
+@keyframes up{from{opacity:0;transform:translateY(12px)}}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}}
+.vote #app>.card,.vote #app>.step,.vote #app>.back{animation:fade .45s cubic-bezier(.2,.8,.2,1) both}
+.cta{display:block;width:100%;text-align:center;text-decoration:none;margin-top:12px;padding:17px;font:inherit;font-size:1.08rem;font-weight:600;color:#1a1407;border:0;border-radius:16px;background:linear-gradient(180deg,var(--gold2),var(--gold));box-shadow:0 10px 28px rgba(216,180,106,.18);transition:transform .2s ease,opacity .3s ease}
+.cta:disabled{opacity:.28;box-shadow:none}.cta:active{transform:scale(.98)}
+.card{padding:32px 22px;text-align:center;background:var(--surf);border:1px solid var(--line);border-radius:22px}
+.card .big{font-size:2.6rem;margin-bottom:4px}.card h2{margin:6px 0 8px;font-size:1.25rem;font-weight:600}.card p{color:var(--mut);margin:0 0 6px;line-height:1.5}
+.link{display:inline-block;margin-top:14px;padding:14px 22px;color:var(--gold);font-weight:600;text-decoration:none;border:1px solid rgba(216,180,106,.35);border-radius:14px}
+.back{background:none;border:0;color:var(--mut);font:inherit;font-size:.95rem;padding:4px 0;margin-bottom:16px}
+.pin{width:100%;padding:16px;font:inherit;font-size:1.6rem;text-align:center;letter-spacing:.55em;text-indent:.55em;color:var(--tx);background:var(--bg);border:1px solid var(--line);border-radius:14px;outline:none;margin:14px 0 10px;transition:border-color .25s}
+.pin:focus{border-color:var(--gold)}
+.err{color:#ea9090;text-align:center;min-height:1.5em;margin:0 0 6px;font-weight:500;font-size:.95rem}
+.shake{animation:sh .4s}@keyframes sh{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.pc{position:fixed;top:-12px;width:8px;height:12px;z-index:9;animation:fall linear forwards;pointer-events:none}
+@keyframes fall{to{transform:translateY(105vh) rotate(720deg)}}
+.live{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border:1px solid var(--line);background:var(--surf);border-radius:99px;font-size:.8rem;color:var(--mut)}
+.dot{width:8px;height:8px;border-radius:50%;background:#55555c;transition:background .3s}
+.live.on .dot{background:var(--ok);box-shadow:0 0 0 0 rgba(111,207,151,.6);animation:pl 2s infinite}
+@keyframes pl{to{box-shadow:0 0 0 9px rgba(111,207,151,0)}}
+.tot{text-align:center;margin:22px 0 24px;color:var(--mut);font-size:.9rem}
+.tot b{display:block;font-size:2.8rem;font-weight:600;color:var(--gold2);line-height:1.1;margin-bottom:2px}
+.res{padding:16px;margin-bottom:10px;background:var(--surf);border:1px solid var(--line);border-radius:16px;transition:border-color .4s}
+.top{display:flex;justify-content:space-between;gap:12px;font-weight:500;line-height:1.45}
+.n{flex:none;color:var(--gold);font-weight:600}
+.track{height:6px;margin-top:12px;background:rgba(255,255,255,.07);border-radius:9px;overflow:hidden}
+.track i{display:block;height:100%;width:0;border-radius:9px;background:linear-gradient(90deg,#7d6330,var(--gold));transition:width 1s cubic-bezier(.2,.8,.2,1)}
+.res.lead{border-color:rgba(216,180,106,.5)}.res.lead .track i{background:linear-gradient(90deg,var(--gold),var(--gold2))}
+.who{margin-top:10px;font-size:.85rem;color:var(--mut);line-height:1.6}
+.box{margin-top:18px;padding:18px;background:var(--surf);border:1px solid var(--line);border-radius:16px;font-size:.88rem;line-height:2}
+.box b{display:block;margin-bottom:4px;font-weight:600;color:var(--tx)}
+.chip{display:inline-block;padding:2px 11px;margin:2px;border-radius:99px;font-size:.82rem}
+.ok{background:rgba(111,207,151,.12);color:var(--ok)}.wait{background:var(--surf2);color:var(--mut)}
+.flash{animation:fs .9s ease}@keyframes fs{30%{border-color:var(--gold)}}
+</style>
+<script>
+(function(){var d=document,p=function(e){e.preventDefault()};
+["gesturestart","gesturechange","gestureend","contextmenu","copy","cut","dragstart"].forEach(function(t){d.addEventListener(t,p,{passive:false})});
+d.addEventListener("selectstart",function(e){if(!/INPUT|TEXTAREA/.test(e.target.tagName||""))e.preventDefault()});
+d.addEventListener("touchmove",function(e){if(e.touches.length>1)e.preventDefault()},{passive:false});
+d.addEventListener("wheel",function(e){if(e.ctrlKey)e.preventDefault()},{passive:false});
+d.addEventListener("keydown",function(e){if((e.ctrlKey||e.metaKey)&&["+","-","=","0","c","x","u","s"].indexOf(e.key.toLowerCase())>-1&&!/INPUT/.test((e.target.tagName||"")))e.preventDefault()});
+var l=0;d.addEventListener("touchend",function(e){var n=Date.now();if(n-l<300)e.preventDefault();l=n},{passive:false});
+})();
+</script>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero"><h1>🕵️ হকাই-এর ধন কে নিয়েছে??</h1><span class="live" id="live"><span class="dot"></span><span id="st">কানেক্ট হচ্ছে…</span></span></div>
+  <div id="app"></div>
+  <a class="cta" href="vote.html">🗳️ ভোট দিতে যাও</a>
+</div>
+<script>
+/* ===== SETUP: vote.html এর সাথে একই URL ===== */
+const FIREBASE_URL = "https://hokai-vote-default-rtdb.asia-southeast1.firebasedatabase.app";   // "https://your-project-default-rtdb.firebaseio.com"
+const SHOW_WHO     = false; // true দিলে কে কাকে ভোট দিলো সেটাও দেখাবে
+/* ========================================= */
+const FRIENDS=["Sahin","Mubarak","Rahim","Kaif","Rohan","Sonil","Akash","Mija","Kamal","Raju","Majha","Aziz","Swapan","Sumon","Mimon","Abdar"];
+const OPTS=["Rahim","Majha","Rohan","Sonil","Akash","কেসটা CBI এর উপরে ছেড়ে দেওয়া হোক, CBI এর সঠিক তদন্ত করবে!!"];
+const app=document.getElementById("app"),DB=FIREBASE_URL.replace(/\/$/,"");
+const esc=s=>String(s).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+let prev=null,prevP=[];
+function setLive(on){document.getElementById("live").classList.toggle("on",on);document.getElementById("st").textContent=on?"LIVE · নিজে নিজেই আপডেট হচ্ছে":"আবার কানেক্ট হচ্ছে…"}
+function draw(v){
+  const names=Object.keys(v),tot=names.length;
+  const cnt=OPTS.map((_,i)=>names.filter(n=>v[n].c===i).length),max=Math.max(...cnt);
+  const changed=prev&&prev.some((x,i)=>x!==cnt[i]);prev=cnt;
+  app.innerHTML=`<div class="tot"><b>${tot}/${FRIENDS.length}</b>ভোট পড়েছে</div>`
+   +OPTS.map((o,i)=>{const p=tot?Math.round(cnt[i]*100/tot):0;
+     const who=SHOW_WHO&&cnt[i]?`<div class="who">${esc(names.filter(n=>v[n].c===i).join(", "))}</div>`:"";
+     return `<div class="res ${tot&&cnt[i]===max?"lead":""} ${changed?"flash":""}"><div class="top"><span>${esc(o)}</span><span class="n">${cnt[i]} · ${p}%</span></div><div class="track"><i data-w="${p}" style="width:${prevP[i]||0}%"></i></div>${who}</div>`}).join("")
+   +`<div class="box"><b>ভোট দিয়েছে ✅</b>${FRIENDS.filter(f=>f in v).map(f=>`<span class="chip ok">${f}</span>`).join("")||"<span class='who'>এখনও কেউ না</span>"}<b style="margin-top:10px">বাকি ⏳</b>${FRIENDS.filter(f=>!(f in v)).map(f=>`<span class="chip wait">${f}</span>`).join("")||"<span class='who'>কেউ বাকি নেই 🎉</span>"}</div>`;
+  requestAnimationFrame(()=>requestAnimationFrame(()=>app.querySelectorAll(".track i").forEach(e=>e.style.width=e.dataset.w+"%")));
+  prevP=OPTS.map((_,i)=>tot?Math.round(cnt[i]*100/tot):0);
+}
+async function refresh(){try{draw((await (await fetch(DB+"/voters.json")).json())||{});setLive(true)}catch(e){setLive(false)}}
+if(!DB){app.innerHTML=`<div class="res"><b>⚙️ Setup বাকি</b><div class="who">ফাইলে FIREBASE_URL বসাওনি।</div></div>`}
+else{
+  refresh();
+  const es=new EventSource(DB+"/voters.json");           // Firebase থেকে instant খবর
+  es.addEventListener("put",refresh);es.addEventListener("patch",refresh);
+  es.onerror=()=>setLive(false);
+  setInterval(refresh,15000);                              // backup
+}
+</script>
+</body>
+</html>

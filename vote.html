@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#0c0c0e">
+<title>ভোট দাও – হকাই-এর ধন</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0c0c0e;--surf:#151518;--surf2:#1e1e23;--line:rgba(255,255,255,.09);--tx:#f4f1ea;--mut:#8f8d96;--gold:#d8b46a;--gold2:#f0d79a;--ok:#6fcf97}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+input{-webkit-user-select:text;user-select:text}
+html,body{margin:0;min-height:100%;overscroll-behavior:none;touch-action:manipulation;-webkit-text-size-adjust:100%}
+body{font-family:"Hind Siliguri",system-ui,sans-serif;color:var(--tx);-webkit-font-smoothing:antialiased;background:radial-gradient(120% 55% at 50% -8%,rgba(216,180,106,.11),transparent 60%),var(--bg);background-attachment:fixed;padding:calc(env(safe-area-inset-top,0px) + 34px) 20px calc(env(safe-area-inset-bottom,0px) + 36px)}
+.wrap{max-width:440px;margin:0 auto}
+.hero{text-align:center;margin-bottom:30px}
+.ic{display:block;font-size:1.9rem;margin-bottom:14px;opacity:.9}
+h1{font-size:1.6rem;line-height:1.35;margin:0 0 8px;font-weight:600;letter-spacing:-.01em;color:var(--tx);background:none;-webkit-text-fill-color:currentColor}
+.sub{color:var(--mut);margin:0;font-size:.95rem;line-height:1.5}
+.step{color:var(--mut);font-size:.88rem;font-weight:500;letter-spacing:.04em;margin:0 0 14px}
+.names{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.nm{padding:17px 8px;font:inherit;font-size:1.05rem;font-weight:500;color:var(--tx);background:var(--surf);border:1px solid var(--line);border-radius:14px;transition:transform .2s ease,border-color .25s ease,background .25s ease;animation:up .5s cubic-bezier(.2,.8,.2,1) both}
+.nm:active{transform:scale(.96);border-color:var(--gold);background:var(--surf2)}
+.opt{display:flex;align-items:center;gap:14px;width:100%;text-align:left;font:inherit;color:var(--tx);padding:16px;margin-bottom:10px;background:var(--surf);border:1px solid var(--line);border-radius:16px;transition:transform .2s ease,border-color .25s ease,background .25s ease;animation:up .5s cubic-bezier(.2,.8,.2,1) both}
+.opt:active{transform:scale(.985)}
+.av{flex:none;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font-weight:600;font-size:1rem;color:var(--gold);background:var(--surf2);border:1px solid var(--line)}
+.tx{flex:1;font-size:1.02rem;font-weight:500;line-height:1.45}
+.ck{flex:none;width:22px;height:22px;border-radius:50%;border:1.5px solid rgba(255,255,255,.22);transition:.25s ease}
+.opt.sel{border-color:var(--gold);background:var(--surf2)}
+.opt.sel .ck{background:var(--gold);border-color:var(--gold);box-shadow:inset 0 0 0 5px var(--surf2)}
+.opt.cbi{border-style:dashed}.opt.cbi .av{border-color:rgba(216,180,106,.4)}
+@keyframes up{from{opacity:0;transform:translateY(12px)}}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}}
+.vote #app>.card,.vote #app>.step,.vote #app>.back{animation:fade .45s cubic-bezier(.2,.8,.2,1) both}
+.cta{display:block;width:100%;text-align:center;text-decoration:none;margin-top:12px;padding:17px;font:inherit;font-size:1.08rem;font-weight:600;color:#1a1407;border:0;border-radius:16px;background:linear-gradient(180deg,var(--gold2),var(--gold));box-shadow:0 10px 28px rgba(216,180,106,.18);transition:transform .2s ease,opacity .3s ease}
+.cta:disabled{opacity:.28;box-shadow:none}.cta:active{transform:scale(.98)}
+.card{padding:32px 22px;text-align:center;background:var(--surf);border:1px solid var(--line);border-radius:22px}
+.card .big{font-size:2.6rem;margin-bottom:4px}.card h2{margin:6px 0 8px;font-size:1.25rem;font-weight:600}.card p{color:var(--mut);margin:0 0 6px;line-height:1.5}
+.link{display:inline-block;margin-top:14px;padding:14px 22px;color:var(--gold);font-weight:600;text-decoration:none;border:1px solid rgba(216,180,106,.35);border-radius:14px}
+.back{background:none;border:0;color:var(--mut);font:inherit;font-size:.95rem;padding:4px 0;margin-bottom:16px}
+.pin{width:100%;padding:16px;font:inherit;font-size:1.6rem;text-align:center;letter-spacing:.55em;text-indent:.55em;color:var(--tx);background:var(--bg);border:1px solid var(--line);border-radius:14px;outline:none;margin:14px 0 10px;transition:border-color .25s}
+.pin:focus{border-color:var(--gold)}
+.err{color:#ea9090;text-align:center;min-height:1.5em;margin:0 0 6px;font-weight:500;font-size:.95rem}
+.shake{animation:sh .4s}@keyframes sh{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.pc{position:fixed;top:-12px;width:8px;height:12px;z-index:9;animation:fall linear forwards;pointer-events:none}
+@keyframes fall{to{transform:translateY(105vh) rotate(720deg)}}
+.live{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border:1px solid var(--line);background:var(--surf);border-radius:99px;font-size:.8rem;color:var(--mut)}
+.dot{width:8px;height:8px;border-radius:50%;background:#55555c;transition:background .3s}
+.live.on .dot{background:var(--ok);box-shadow:0 0 0 0 rgba(111,207,151,.6);animation:pl 2s infinite}
+@keyframes pl{to{box-shadow:0 0 0 9px rgba(111,207,151,0)}}
+.tot{text-align:center;margin:22px 0 24px;color:var(--mut);font-size:.9rem}
+.tot b{display:block;font-size:2.8rem;font-weight:600;color:var(--gold2);line-height:1.1;margin-bottom:2px}
+.res{padding:16px;margin-bottom:10px;background:var(--surf);border:1px solid var(--line);border-radius:16px;transition:border-color .4s}
+.top{display:flex;justify-content:space-between;gap:12px;font-weight:500;line-height:1.45}
+.n{flex:none;color:var(--gold);font-weight:600}
+.track{height:6px;margin-top:12px;background:rgba(255,255,255,.07);border-radius:9px;overflow:hidden}
+.track i{display:block;height:100%;width:0;border-radius:9px;background:linear-gradient(90deg,#7d6330,var(--gold));transition:width 1s cubic-bezier(.2,.8,.2,1)}
+.res.lead{border-color:rgba(216,180,106,.5)}.res.lead .track i{background:linear-gradient(90deg,var(--gold),var(--gold2))}
+.who{margin-top:10px;font-size:.85rem;color:var(--mut);line-height:1.6}
+.box{margin-top:18px;padding:18px;background:var(--surf);border:1px solid var(--line);border-radius:16px;font-size:.88rem;line-height:2}
+.box b{display:block;margin-bottom:4px;font-weight:600;color:var(--tx)}
+.chip{display:inline-block;padding:2px 11px;margin:2px;border-radius:99px;font-size:.82rem}
+.ok{background:rgba(111,207,151,.12);color:var(--ok)}.wait{background:var(--surf2);color:var(--mut)}
+.flash{animation:fs .9s ease}@keyframes fs{30%{border-color:var(--gold)}}
+</style>
+<script>
+(function(){var d=document,p=function(e){e.preventDefault()};
+["gesturestart","gesturechange","gestureend","contextmenu","copy","cut","dragstart"].forEach(function(t){d.addEventListener(t,p,{passive:false})});
+d.addEventListener("selectstart",function(e){if(!/INPUT|TEXTAREA/.test(e.target.tagName||""))e.preventDefault()});
+d.addEventListener("touchmove",function(e){if(e.touches.length>1)e.preventDefault()},{passive:false});
+d.addEventListener("wheel",function(e){if(e.ctrlKey)e.preventDefault()},{passive:false});
+d.addEventListener("keydown",function(e){if((e.ctrlKey||e.metaKey)&&["+","-","=","0","c","x","u","s"].indexOf(e.key.toLowerCase())>-1&&!/INPUT/.test((e.target.tagName||"")))e.preventDefault()});
+var l=0;d.addEventListener("touchend",function(e){var n=Date.now();if(n-l<300)e.preventDefault();l=n},{passive:false});
+})();
+</script>
+</head>
+<body class="vote">
+<div class="wrap">
+  <div class="hero"><span class="ic">🕵️</span><h1>হকাই-এর ধন কে নিয়েছে??</h1><p class="sub">নিজের নাম বেছে ভোট দাও</p></div>
+  <div id="app"><div class="card"><p>লোড হচ্ছে…</p></div></div>
+</div>
+<script>
+/* ===== SETUP: দুই ফাইলেই একই URL বসাবে ===== */
+const FIREBASE_URL = "https://hokai-vote-default-rtdb.asia-southeast1.firebasedatabase.app";   // "https://your-project-default-rtdb.firebaseio.com"
+const RESULT_PAGE  = "result.html";
+/* ========================================= */
+const FRIENDS=["Sahin","Mubarak","Rahim","Kaif","Rohan","Sonil","Akash","Mija","Kamal","Raju","Majha","Aziz","Swapan","Sumon","Mimon","Abdar"];
+const HASH={"Sahin": "582eb3707a65e989ecea1da7b1c7da4c1cf5e44271f4db913af752774bf36f7d", "Mubarak": "648d377f43acba9d3cd05b265ba55c663878474184d064acbd86f0e25cbb2577", "Rahim": "45ce712e04203e953d2db529fdee5185adf5dda978dc77621f5da7bb3e2f9b89", "Kaif": "b7752ff23caa765b93f9b0f2ecc33a865673ebd657c0c8e84ae5c05ec8da1076", "Rohan": "0f57ae52fb1d426cdb0cba78ae9a4c690c1ef9b9088e91f7818763170d79f40a", "Sonil": "c952dbfe8dcedc4b78be8e6c398c2347614f742783c25e1fbea8a91a5ef5475c", "Akash": "6d1643e5dd66b6a492676189c35ae0b90ac71bd3c25eab74558649193d141d17", "Mija": "0a1db1f9e9d2db76b50cdb2ad3b096dd6c1e27bda6d749f3b0167ee8c997e3bf", "Kamal": "b73d32b4652febd598b3d330c068942795dba0ebe229a5de00d528fb2536b60b", "Raju": "50898ce9bab68ccce6d2cab1604db14113a1bae58d37c2ec9f0549db6c9732d4", "Majha": "16c7535ac37f6c96c5584369fcefd38d07638def28cbc6e6d4e62d37030af987", "Aziz": "5c2dc5e8506d0ba5e4070815b928ee8b366943b1a94e52e7824643c2e27895c2", "Swapan": "0d57d07cd5859b1eae6729494b166d0657ac688917f6cb08ce6a122fbd771317", "Sumon": "a182a0b1f96e7399b775a987d82c10f375fdf59a9e99d66f4601498ae9f79d6b", "Mimon": "63cf75c2acd91bea53ad8c531e1467688245b01685a252df6ace7823ad35db63", "Abdar": "6003c996cd61399ef31e08b7566aafad1301c09d29b6a337f3d04ecaf41a291f"};
+async function sha(t){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(t));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')}
+const OPTS=["Rahim","Majha","Rohan","Sonil","Akash","কেসটা CBI এর উপরে ছেড়ে দেওয়া হোক, CBI এর সঠিক তদন্ত করবে!!"];
+const app=document.getElementById("app"),DB=FIREBASE_URL.replace(/\/$/,"");
+let me=null,pick=null;
+const esc=s=>String(s).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+const doneCard=n=>`<div class="card"><div class="big">✅</div><h2>${esc(n)}, তোমার ভোট জমা!</h2><p>ধন্যবাদ। এখন Live Result দেখো 👇</p><a class="link" href="${RESULT_PAGE}">📊 Result দেখো</a></div>`;
+function confetti(){const c=["#d8b46a","#f0d79a","#ffffff","#a8884a","#6fcf97"];for(let i=0;i<60;i++){const e=document.createElement("i");e.className="pc";e.style.cssText=`left:${Math.random()*100}vw;background:${c[i%5]};animation-duration:${1.6+Math.random()*1.8}s;animation-delay:${Math.random()*.4}s;border-radius:${i%2?"50%":"2px"}`;document.body.appendChild(e);setTimeout(()=>e.remove(),4000)}}
+
+async function showNames(){
+  if(!DB){app.innerHTML=`<div class="card"><h2>⚙️ Setup বাকি</h2><p>ফাইলে FIREBASE_URL বসাওনি।</p></div>`;return}
+  me=null;pick=null;
+  let voted={};
+  try{voted=(await (await fetch(DB+"/voters.json")).json())||{}}catch(e){app.innerHTML=`<div class="card"><h2>⚠️ নেট সমস্যা</h2><p>আবার চেষ্টা করো।</p></div>`;return}
+  const left=FRIENDS.filter(f=>!(f in voted));
+  if(!left.length){app.innerHTML=`<div class="card"><div class="big">🎉</div><h2>সবাই ভোট দিয়ে ফেলেছে!</h2><a class="link" href="${RESULT_PAGE}">📊 Result দেখো</a></div>`;return}
+  app.innerHTML=`<p class="step">১. তুমি কে? (ভোট দিলে নাম এখান থেকে সরে যাবে)</p><div class="names">${left.map((f,i)=>`<button class="nm" data-n="${f}" style="animation-delay:${i*.04}s">${f}</button>`).join("")}</div>`;
+}
+function showPin(){
+  app.innerHTML=`<button class="back" id="back">← নাম বদলাও</button><div class="card"><div class="big">🪪</div><h2>${esc(me)}, তোমার Voter ID দাও</h2><p>৪ ডিজিটের নম্বর</p><input class="pin" id="pin" type="password" inputmode="numeric" maxlength="4" placeholder="••••" autocomplete="off"><div class="err" id="err"></div><button class="cta" id="pinok">✔ যাচাই করো</button></div>`;
+  setTimeout(()=>{const p=document.getElementById("pin");p&&p.focus()},50);
+}
+function showOptions(){
+  app.innerHTML=`<button class="back" id="back">← নাম বদলাও</button><p class="step">২. ${esc(me)}, কাকে সন্দেহ করো?</p>`
+   +OPTS.map((o,i)=>`<button class="opt ${i===5?"cbi":""} ${pick===i?"sel":""}" data-i="${i}" style="animation-delay:${i*.06}s"><span class="av">${i===5?"🕵️":esc(o[0])}</span><span class="tx">${esc(o)}</span><span class="ck"></span></button>`).join("")
+   +`<button class="cta" id="go" ${pick===null?"disabled":""}>🗳️ ভোট দাও</button>`;
+}
+app.addEventListener("click",async e=>{
+  const b=e.target.closest("button");if(!b)return;
+  if(b.dataset.n){me=b.dataset.n;showPin()}
+  else if(b.id==="pinok"){
+    const inp=document.getElementById("pin"),err=document.getElementById("err");
+    if(!/^\d{4}$/.test(inp.value)){err.textContent="৪ ডিজিটের Voter ID দাও";return}
+    if(await sha(me+":"+inp.value)!==HASH[me]){err.textContent="❌ ভুল Voter ID! আবার চেষ্টা করো।";inp.value="";inp.classList.remove("shake");void inp.offsetWidth;inp.classList.add("shake");return}
+    showOptions();
+  }
+  else if(b.dataset.i){pick=+b.dataset.i;showOptions()}
+  else if(b.id==="back")showNames();
+  else if(b.id==="go"&&pick!==null){
+    b.disabled=true;b.textContent="জমা হচ্ছে…";
+    try{
+      const ex=await (await fetch(`${DB}/voters/${encodeURIComponent(me)}.json`)).json();
+      if(ex!==null){alert("এই নামে আগেই ভোট দেওয়া হয়ে গেছে!");showNames();return}
+      const r=await fetch(`${DB}/voters/${encodeURIComponent(me)}.json`,{method:"PUT",body:JSON.stringify({c:pick,t:Date.now()})});
+      if(!r.ok)throw 0;
+      confetti();app.innerHTML=doneCard(me);
+    }catch(x){alert("ভোট জমা হয়নি, আবার চেষ্টা করো।");showOptions()}
+  }
+});
+showNames();
+</script>
+</body>
+</html>
